@@ -9,6 +9,9 @@ public class PlayerMovement : MonoBehaviour
     private float jumpingPower = 20f;
     private bool isFacingRight= true;
 
+    public Transform height;
+    bool prev_grounded = false;
+
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
@@ -26,6 +29,7 @@ public class PlayerMovement : MonoBehaviour
         {
             Debug.Log("Jump!");
             rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
+            height.GetComponent<Animator>().SetTrigger("Stretch");
         }
 
         if(Input.GetButtonUp("Jump") && rb.velocity.y > 0f)
@@ -34,6 +38,13 @@ public class PlayerMovement : MonoBehaviour
         }
 
         Flip();
+
+        prev_grounded = isGrounded();
+
+        if(isGrounded() && !prev_grounded)
+        {
+            height.GetComponent<Animator>().SetTrigger("Squash");
+        }
     }
 
     private void FixedUpdate()
@@ -51,9 +62,8 @@ public class PlayerMovement : MonoBehaviour
         if(isFacingRight && horizontal < 0f || !isFacingRight && horizontal > 0f)
         {
             isFacingRight = !isFacingRight;
-            Vector3 localScale = transform.localScale;
-            localScale.x *= -1f;
-            transform.localScale = localScale;
+            
+            transform.Rotate(0f, 180f, 0f);
         }
     }
 }
