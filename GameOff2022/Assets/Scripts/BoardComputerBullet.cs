@@ -33,7 +33,6 @@ public class BoardComputerBullet : MonoBehaviour
         if (hitInfo.CompareTag("Player"))
         {
             Destroy(gameObject);
-            Debug.Log("Hit Player");
             //TODO: Make special Player-HitSound and implement
         }
 

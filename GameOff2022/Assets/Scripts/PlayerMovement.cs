@@ -6,8 +6,10 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public Transform height;
-    // TODO:"Change Starthealth of Player"
-    public float playerHealth = 3f;
+    // TODO: Change Starthealth of Player
+    public float maxHealth = 3f;
+    public float currentHealth;
+    public Healthbar healthBar;
 
     private float _horizontal;
     private float _speed = 8f;
@@ -25,21 +27,16 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
-
+        currentHealth = maxHealth;
+        healthBar.SetMaxHealth(maxHealth);
     }
 
     void Update()
     {
         _horizontal = Input.GetAxisRaw("Horizontal");
 
-        if (isGrounded())
-        {
-            Debug.Log("Grounded!");
-        }
-
         if (Input.GetButtonDown("Jump") && isGrounded())
         {
-            Debug.Log("Jump!");
             _rb.velocity = new Vector2(_rb.velocity.x, _jumpingPower);
             height.GetComponent<Animator>().SetTrigger("Stretch");
         }
@@ -56,6 +53,12 @@ public class PlayerMovement : MonoBehaviour
         if (isGrounded() && !_prevGrounded)
         {
             height.GetComponent<Animator>().SetTrigger("Squash");
+        }
+
+        if(currentHealth == 0f)
+        {
+            Debug.Log("Health equals 0");
+            //TODO: Add teleportation to begin of level, when player is "dead"
         }
     }
 
@@ -83,8 +86,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if(other.CompareTag("BulletBC"))
         {
-            playerHealth = playerHealth - 1f;
-            Debug.Log("Player Health -1! Now: " + playerHealth + "!");
+            currentHealth = currentHealth - 1f;
+            healthBar.SetHealth(currentHealth);
         }
     }
 }
