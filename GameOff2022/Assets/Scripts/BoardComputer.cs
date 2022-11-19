@@ -6,7 +6,7 @@ public class BoardComputer : MonoBehaviour
 {
     public float healthScore;
     public GameObject bullet;
-    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -16,7 +16,7 @@ public class BoardComputer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(healthScore == 0f)
+        if (healthScore == 0f)
         {
             Destroy(gameObject);
         }
@@ -24,7 +24,7 @@ public class BoardComputer : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.gameObject.CompareTag("Bullet"))
+        if (other.gameObject.CompareTag("Bullet"))
         {
             healthScore = healthScore - 1f;
             Debug.Log(healthScore);
