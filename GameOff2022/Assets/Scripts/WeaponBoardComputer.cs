@@ -21,7 +21,7 @@ public class WeaponBoardComputer : MonoBehaviour
         float distance = Vector2.Distance(transform.position, _player.transform.position);
         // Debug.Log(distance);
 
-        if (distance < 50)
+        if (distance < 30)
         {
             _timer += Time.deltaTime;
 
