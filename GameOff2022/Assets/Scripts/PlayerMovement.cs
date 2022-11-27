@@ -7,18 +7,17 @@ public class PlayerMovement : MonoBehaviour
 {
     public Transform height;
     // TODO: Change Starthealth of Player
-    public float maxHealth = 3f;
-    public float currentHealth;
+    public int maxHealth = 3;
+    public int currentHealth;
     public Healthbar healthBar;
+    public GameObject fallDetector;
 
     private float _horizontal;
     private float _speed = 8f;
-    private float _jumpingPower = 20f;
+    private float _jumpingPower = 30f;
     private bool _prevGrounded = false;
     private bool _isFacingRight = true;
-    
-    
-
+    private Vector3 _respawnPoint;
 
     [Header("Jumping and Physics")]
     [SerializeField] private Rigidbody2D _rb;
@@ -29,6 +28,7 @@ public class PlayerMovement : MonoBehaviour
     {
         currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
+        _respawnPoint = transform.position;
     }
 
     void Update()
@@ -55,7 +55,7 @@ public class PlayerMovement : MonoBehaviour
             height.GetComponent<Animator>().SetTrigger("Squash");
         }
 
-        if(currentHealth == 0f)
+        if (currentHealth == 0f)
         {
             Debug.Log("Health equals 0");
             //TODO: Add teleportation to begin of level, when player is "dead"
@@ -84,10 +84,15 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.CompareTag("BulletBC"))
+        if (other.CompareTag("BulletBC"))
         {
-            currentHealth = currentHealth - 1f;
+            currentHealth = currentHealth - 1;
             healthBar.SetHealth(currentHealth);
+        }
+
+        if (other.CompareTag("Void"))
+        {
+            transform.position = _respawnPoint;
         }
     }
 }
