@@ -6,15 +6,14 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public Transform height;
-    // TODO: Change Starthealth of Player
-    public int maxHealth = 3;
+    public int maxHealth = 5;
     public int currentHealth;
     public Healthbar healthBar;
     public GameObject fallDetector;
 
     private float _horizontal;
     private float _speed = 8f;
-    private float _jumpingPower = 30f;
+    private float _jumpingPower = 22.5f;
     private bool _prevGrounded = false;
     private bool _isFacingRight = true;
     private Vector3 _respawnPoint;
@@ -58,7 +57,7 @@ public class PlayerMovement : MonoBehaviour
         if (currentHealth == 0f)
         {
             Debug.Log("Health equals 0");
-            //TODO: Add teleportation to begin of level, when player is "dead"
+            transform.position = _respawnPoint;
         }
     }
 
