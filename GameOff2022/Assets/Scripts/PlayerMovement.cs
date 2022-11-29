@@ -83,7 +83,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("BulletBC"))
+        if (other.CompareTag("BulletBC") || other.CompareTag("Missile"))
         {
             currentHealth = currentHealth - 1;
             healthBar.SetHealth(currentHealth);
