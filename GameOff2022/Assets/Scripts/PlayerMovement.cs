@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -94,4 +95,5 @@ public class PlayerMovement : MonoBehaviour
             transform.position = _respawnPoint;
         }
     }
+
 }
