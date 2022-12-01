@@ -6,6 +6,7 @@ public class BoardComputer : MonoBehaviour
 {
     public float healthScore;
     public GameObject bullet;
+    public BoxCollider2D bc;
 
     // Start is called before the first frame update
     void Start()
@@ -18,7 +19,7 @@ public class BoardComputer : MonoBehaviour
     {
         if (healthScore == 0f)
         {
-            Destroy(gameObject);
+            bc.enabled = false;
         }
     }
 
